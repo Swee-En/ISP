@@ -1,0 +1,121 @@
+package piano;
+
+import java.util.ArrayList;
+
+import javax.sound.midi.MidiUnavailableException;
+
+import midi.Midi;
+import midi.Instrument;
+import music.NoteEvent;
+import music.Pitch;
+
+public class PianoMachine {
+	
+	private Midi midi;
+	private boolean isRecording = false;
+	private ArrayList<Pitch> currentPlay = new ArrayList<>();
+	private Instrument instrument = Midi.DEFAULT_INSTRUMENT;
+	private int semitones = 0;
+	private ArrayList<NoteEvent> sequence = new ArrayList<>();
+	private boolean isPlayingBack = false;
+    
+	/**
+	 * constructor for PianoMachine.
+	 * 
+	 * initialize midi device and any other state that we're storing.
+	 */
+    public PianoMachine() {
+    	try {
+            midi = Midi.getInstance();
+        } catch (MidiUnavailableException e1) {
+            System.err.println("Could not initialize midi device");
+            e1.printStackTrace();
+            return;
+        }
+    }
+    
+    //TODO write method spec
+    public void beginNote(Pitch rawPitch) {
+        Pitch newPitch = rawPitch.transpose(semitones);
+        if (!currentPlay.contains(newPitch)) {
+            midi.beginNote(newPitch.toMidiFrequency(), instrument);
+            currentPlay.add(newPitch);
+        }
+        if (isRecording == true) {
+            NoteEvent notes = new NoteEvent(newPitch, System.currentTimeMillis(), instrument, NoteEvent.Kind.start);
+            sequence.add(notes);
+        }
+
+    	//TODO implement for question 1
+    }
+    
+    //TODO write method spec
+    public void endNote(Pitch rawPitch) {
+        Pitch newPitch = rawPitch.transpose(semitones);
+        if (currentPlay.contains(newPitch)) {
+            midi.endNote(newPitch.toMidiFrequency(), instrument);
+            currentPlay.remove(newPitch);
+        }
+        if (isRecording == true) {
+            NoteEvent notes = new NoteEvent(newPitch, System.currentTimeMillis(), instrument, NoteEvent.Kind.stop);
+            sequence.add(notes);
+        }
+    	//TODO implement for question 1
+    }
+    
+    //TODO write method spec
+    public void changeInstrument() {
+        instrument = instrument.next();
+       	//TODO: implement for question 2
+    }
+    
+    //TODO write method spec
+    public void shiftUp() {
+        if (semitones <=12) {
+            semitones += 12;
+        }
+
+    }
+    
+    //TODO write method spec
+    public void shiftDown() {
+        if (semitones>=-12) {
+            semitones -= 12;
+        }
+    	//TODO: implement for question 3
+    }
+    
+    //TODO write method spec
+    public boolean toggleRecording() {
+        isRecording = !isRecording;
+        if (isRecording) {
+            sequence = new ArrayList<NoteEvent>();
+        }
+        return isRecording;
+    	//TODO: implement for question 4
+    }
+    
+    //TODO write method spec
+    public void playback() {
+        long prevEventTime = 0;
+
+        if (isPlayingBack == false) {
+            for (NoteEvent n : sequence) {
+                if (prevEventTime>0) {
+                    long timeDif = Math.round((n.getTime() - prevEventTime) / 10.0);
+                    Midi.rest((int) (timeDif));
+                }
+                prevEventTime = n.getTime();
+                
+                if (n.getKind()==NoteEvent.Kind.start) {
+                    midi.beginNote(n.getPitch().toMidiFrequency(), n.getInstr());
+                }
+                else if (n.getKind() == NoteEvent.Kind.stop) {
+                    midi.endNote(n.getPitch().toMidiFrequency(), n.getInstr());
+                }
+            }
+        }
+        //TODO: implement for question 4
+    }
+
+}
