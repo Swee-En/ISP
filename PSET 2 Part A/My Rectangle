@@ -1,0 +1,109 @@
+public class MyRectangle2D {
+    public double x;
+    public double y;
+
+    public double getX() {return x;}
+    public void setX(int x_) {x = x_;}
+    public double getY() {return y;}
+    public void setY(int y_) {y = y_;}
+
+    public double width;
+    public double height;
+
+    public double getWidth() {return width;}
+    public void setWidth(int width_) {width = width_;}
+    public double getHeight() {return height;}
+    public void setHeight(int height_) {height = height_;}
+
+    public MyRectangle2D () {
+        x = 0;
+        y = 0;
+
+        width = 1;
+        height = 1;
+    }
+
+    public MyRectangle2D(double specified_x, double specified_y, double specified_width, double specified_height) {
+        x = specified_x;
+        y = specified_y;
+        width = specified_width;
+        height = specified_height;
+    }
+
+    public double getArea() {
+        return getWidth()*getHeight();
+    }
+
+    public double getPerimeter() {
+        return 2*(getWidth()+getHeight());
+    }
+
+    public boolean contains(double x1, double y1){
+        double x_left = getX() - 0.5*getWidth();
+        double x_right = getX() + 0.5*getWidth();
+        double y_top = getY() + 0.5*getHeight();
+        double y_bottom = getY() - 0.5*getHeight();
+
+        if (x1<=x_right && x1>=x_left && y1<=y_top && y1>=y_bottom) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public boolean contains (MyRectangle2D r) {
+
+        double x_left = getX() - 0.5*getWidth();
+        double x_right = getX() + 0.5*getWidth();
+        double y_top = getY() + 0.5*getHeight();
+        double y_bottom = getY() - 0.5*getHeight();
+
+        double x_left1 = r.x - 0.5*r.width;
+        double x_right1 = r.x + 0.5*r.width;
+        double y_top1 = r.y + 0.5*r.height;
+        double y_bottom1 = r.y - 0.5*r.height;
+
+        if (x_left1 >= x_left && x_left1 <= x_right && x_right1<=x_right && x_right1>=x_left &&
+                y_top1<=y_top && y_top1>=y_bottom && y_bottom1>=y_bottom && y_bottom1<=y_top1) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+
+
+    }
+
+    public boolean overlaps (MyRectangle2D r) {
+
+        double x_left = getX() - 0.5 * getWidth();
+        double x_right = getX() + 0.5 * getWidth();
+        double y_top = getY() + 0.5 * getHeight();
+        double y_bottom = getY() - 0.5 * getHeight();
+
+        double x_left1 = r.x - 0.5 * r.width;
+        double x_right1 = r.x + 0.5 * r.width;
+        double y_top1 = r.y + 0.5 * r.height;
+        double y_bottom1 = r.y - 0.5 * r.height;
+
+        boolean out;
+        if (x_left1>x_right||x_right1<x_left||y_top1<y_bottom||y_bottom1>y_top) {
+            out = true;
+        }
+        else {
+            out = false;
+        }
+
+        if (this.contains(r)==false && out == false) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
+
+}
