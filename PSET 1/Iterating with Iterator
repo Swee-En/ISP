@@ -1,0 +1,14 @@
+import java.util.*;
+
+public class IteratingExamples {
+
+    public static int Act2Iterator(List<Integer> integers) {
+        int sum = 0;
+        int size = integers.size();
+        for (int i=0; i<size; i++) {
+            sum = sum + integers.get(i);
+        }
+
+        return sum;
+    }
+}
