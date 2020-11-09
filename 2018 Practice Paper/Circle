@@ -1,0 +1,73 @@
+import java.lang.Math;
+
+public class Circle {
+    private double x;
+    private double y;
+    private double radius;
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public Circle () {
+        x = 0;
+        y = 0;
+        radius = 1;
+    }
+
+    public Circle(double specified_x, double specified_y, double specified_radius) {
+        x = specified_x;
+        y = specified_y;
+        radius = specified_radius;
+    }
+
+    public double getArea() {
+        return Math.PI * getRadius() * getRadius();
+    }
+
+    public double getPerimeter() {
+        return 2 * Math.PI * getRadius();
+    }
+
+    public boolean contains(double px, double py) {
+        double px_left = getX() - getRadius();
+        double px_right = getX() + getRadius();
+        double py_top = getY() + getRadius();
+        double py_bottom = getY() - getRadius();
+
+        if (px > px_right || px < px_left || py > py_top || py < py_bottom) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+
+    public boolean contains(Circle c) {
+        if (getX() - c.x <= getRadius() && getY() - c.y <= getRadius()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public boolean overlaps(Circle c) {
+        if (Math.abs(getX() - c.x) <= getRadius() + c.radius && Math.abs(getY() - c.y) <= getRadius()+c.radius){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
