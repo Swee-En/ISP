@@ -1,0 +1,16 @@
+public class Fish implements Observer {
+    private Subject subject;
+    private String id;
+
+    public Fish(String id, Subject subject) {
+        this.subject = subject;
+        this.id = id;
+        this.subject.register(this);
+    }
+
+    @Override
+    public void update(int temperature){
+        String s = "Fish " + this.id + " receives temperature alert: " + temperature;
+        System.out.println(s);
+    }
+}
