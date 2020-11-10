@@ -1,0 +1,7 @@
+import java.util.Comparator;
+
+public class AccountComparator implements Comparator<Account> {
+    public int compare (Account a, Account b){
+        return (a.getId()).compareTo(b.getId());
+    }
+}
