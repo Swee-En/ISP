@@ -1,0 +1,18 @@
+//starting code
+public class Student implements Observer {
+    private Subject subject;
+    private String id;
+
+    public Student(String id, Subject subject) {
+        this.subject = subject;
+        this.id = id;
+        this.subject.register(this);
+    }
+
+    @Override
+    public void update (int temperature){
+        String s = "Student " + this.id + " receives temperature alert: " + temperature;
+        System.out.println(s);
+    }
+
+}
