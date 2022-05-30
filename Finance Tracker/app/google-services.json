@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1060161371137",
+    "firebase_url": "https://budget-tracker-e8360.firebaseio.com",
+    "project_id": "budget-tracker-e8360",
+    "storage_bucket": "budget-tracker-e8360.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060161371137:android:7fae99dbabd60919c5d400",
+        "android_client_info": {
+          "package_name": "com.example.androidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060161371137-9pfsq4iq4l0bcdmju7dk913doaa5ufld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.androidapp",
+            "certificate_hash": "92596aa74fe9d9b4b0864b1644c2346728db6edf"
+          }
+        },
+        {
+          "client_id": "1060161371137-igg2p5cj8algvelueq7jok7l0pp41hqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6g_rZzKr25sO9yjykVQo5mAYoOlxAR0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060161371137-igg2p5cj8algvelueq7jok7l0pp41hqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
